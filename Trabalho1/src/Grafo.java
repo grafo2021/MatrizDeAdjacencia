@@ -1,0 +1,74 @@
+import java.util.ArrayList;
+
+public class Grafo {
+	private ArrayList<Vertice> vertices = new ArrayList<Vertice>();
+	private ArrayList<Aresta> arestas = new ArrayList<Aresta>();
+
+	public Grafo() {
+
+	}
+
+	public void insereVertice(Vertice v) {
+		vertices.add(v);
+	}
+
+	public void insereAresta(Aresta a) {
+		arestas.add(a);
+	}
+
+	private boolean buscaAresta(Vertice a, Vertice b) {
+
+		for (Aresta aresta : arestas) {
+			if ((aresta.getV1() == a || aresta.getV1() == b) && (aresta.getV2() == a || aresta.getV2() == b)) {
+				return true;
+
+			}
+		}
+
+		return false;
+	}
+
+	public void gerarMatiz() {
+		String matriz = new String();
+		try {
+			if (vertices.isEmpty()) {
+				throw new Exception();
+			}
+			matriz = "  ";
+			for (Vertice ref : vertices) {
+				matriz = matriz + " " + ref.getValue();
+			}
+			matriz = matriz + "\n";
+			for (Vertice linha : vertices) {
+				matriz = matriz+linha.getValue() + '=';
+				for (Vertice coluna : vertices) {
+
+					if (this.buscaAresta(coluna, linha)) {
+						matriz = matriz + "1 ";
+					} else {
+						matriz = matriz + "0 ";
+					}
+				}
+				matriz = matriz + '\n';
+			}
+			
+			System.out.println(matriz);
+
+		} catch (Exception e) {
+			System.out.println("nao foi possivel gerar matriz");
+		}
+
+	}
+	public int calculaOrdem () {
+		return vertices.size();
+	}
+	public int grau(Vertice v ) {
+		int contador = 0 ;
+		for (Aresta arestaRef:arestas) {
+			if (arestaRef.getV1()==v||arestaRef.getV2()==v) {
+				contador++;
+			}
+		}
+		return contador;
+	}
+}
