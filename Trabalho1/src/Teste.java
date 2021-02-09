@@ -29,6 +29,15 @@ public class Teste {
 	grafinho.gerarMatiz();
 	System.out.println("\n\n");
 	System.out.println("ordem do grafo :"+grafinho.calculaOrdem()+"o vertice :"+v3.getValue()+"tem grau "+grafinho.grau(v3));
+
+	grafinho.removeAresta(a3);
+grafinho.removeVertice(v1);
+grafinho.removeVertice(v2);
+	
+	grafinho.gerarMatiz();
+	
 	}
+	
+
 
 }

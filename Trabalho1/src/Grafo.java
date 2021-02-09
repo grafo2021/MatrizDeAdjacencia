@@ -9,15 +9,31 @@ public class Grafo {
 	}
 
 	public void insereVertice(Vertice v) {
+		try {
+			for(Vertice vertice : vertices) {
+				if (v==vertice) {
+					throw new Exception();
+				}
+			}
 		vertices.add(v);
-	}
+	}catch (Exception e) {
+		System.out.println("vertice ja add ");
+	}}
 
 	public void insereAresta(Aresta a) {
+		try{for(Aresta aresta:arestas ) {
+			if ((aresta.getV1()==a.getV1()&&aresta.getV2()==a.getV2())||aresta.getV2()==a.getV1()||aresta.getV1()==a.getV2()) {
+				throw new Exception();
+			}
+		}
 		arestas.add(a);
+		
+	}catch(Exception e){
+		System.out.println("aresta ja add");
+	}
 	}
 
 	private boolean buscaAresta(Vertice a, Vertice b) {
-
 		for (Aresta aresta : arestas) {
 			if ((aresta.getV1() == a || aresta.getV1() == b) && (aresta.getV2() == a || aresta.getV2() == b)) {
 				return true;
@@ -40,7 +56,7 @@ public class Grafo {
 			}
 			matriz = matriz + "\n";
 			for (Vertice linha : vertices) {
-				matriz = matriz+linha.getValue() + '=';
+				matriz = matriz + linha.getValue() + '=';
 				for (Vertice coluna : vertices) {
 
 					if (this.buscaAresta(coluna, linha)) {
@@ -51,7 +67,7 @@ public class Grafo {
 				}
 				matriz = matriz + '\n';
 			}
-			
+
 			System.out.println(matriz);
 
 		} catch (Exception e) {
@@ -59,16 +75,27 @@ public class Grafo {
 		}
 
 	}
-	public int calculaOrdem () {
+
+	public int calculaOrdem() {
 		return vertices.size();
 	}
-	public int grau(Vertice v ) {
-		int contador = 0 ;
-		for (Aresta arestaRef:arestas) {
-			if (arestaRef.getV1()==v||arestaRef.getV2()==v) {
+
+	public int grau(Vertice v) {
+		int contador = 0;
+		for (Aresta arestaRef : arestas) {
+			if (arestaRef.getV1() == v || arestaRef.getV2() == v) {
 				contador++;
 			}
 		}
 		return contador;
 	}
+
+	public void removeVertice(Vertice v) {
+		this.vertices.remove(v);
+	}
+
+	public void removeAresta(Aresta a) {
+		this.arestas.remove(a);
+	}
+
 }
