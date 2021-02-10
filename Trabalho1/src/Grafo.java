@@ -10,27 +10,30 @@ public class Grafo {
 
 	public void insereVertice(Vertice v) {
 		try {
-			for(Vertice vertice : vertices) {
-				if (v==vertice) {
+			for (Vertice vertice : vertices) {
+				if (v == vertice) {
 					throw new Exception();
 				}
 			}
-		vertices.add(v);
-	}catch (Exception e) {
-		System.out.println("vertice ja add ");
-	}}
+			vertices.add(v);
+		} catch (Exception e) {
+			System.out.println("vertice ja add ");
+		}
+	}
 
 	public void insereAresta(Aresta a) {
-		try{for(Aresta aresta:arestas ) {
-			if ((aresta.getV1()==a.getV1()&&aresta.getV2()==a.getV2())||aresta.getV2()==a.getV1()||aresta.getV1()==a.getV2()) {
-				throw new Exception();
+		try {
+			for (Aresta aresta : arestas) {
+				if ((aresta.getV1() == a.getV1() && aresta.getV2() == a.getV2())
+						|| aresta.getV2() == a.getV1() && aresta.getV1() == a.getV2()) {
+					throw new Exception();
+				}
 			}
+			arestas.add(a);
+
+		} catch (Exception e) {
+			System.out.println("aresta ja add");
 		}
-		arestas.add(a);
-		
-	}catch(Exception e){
-		System.out.println("aresta ja add");
-	}
 	}
 
 	private boolean buscaAresta(Vertice a, Vertice b) {
@@ -91,6 +94,11 @@ public class Grafo {
 	}
 
 	public void removeVertice(Vertice v) {
+		for (Aresta aresta : arestas) {
+			if (aresta.getV1() == v || aresta.getV2() == v) {
+				arestas.remove(aresta);
+			}
+		}
 		this.vertices.remove(v);
 	}
 
